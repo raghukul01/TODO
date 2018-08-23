@@ -3,11 +3,11 @@ import os
 
 x = sys.argv
 param = x[1:]
-cmd = ["-h", "add", "del", "clear"]
-
+cmd = ["-h", "add", "del", "clear", "swap", "modify"]
+file = "/home/raghukul/programs/TODO/todo.txt"
 TASKS = []
 try:
-    file_todo = open("/tmp/todo/todo.txt","r")
+    file_todo = open(file,"r")
     x = file_todo.read().split("\n")
 except IOError:
     # this would eventually create a new file
@@ -50,7 +50,7 @@ def print_todo():
     # make symmetric
     if col%2 == 0:
         col = col + 1
-    top_sz = (col - 19) / 2
+    top_sz = int((col - 19) / 2)
     top = ""
     bottom = ""
     for i in range(top_sz):
@@ -77,7 +77,9 @@ elif param[0] == cmd[0]:
         "-h       : Print usage and this help message and exit.\n"
         "add TASK : Add TASK in TODO list\n"
         "del TASK : Remove TASK from TODO list\n"
-        "clear    : Remove all TODOs from list")
+        "clear    : Remove all TODOs from list\n"
+        "swap     : swap i and j task in the list\n"
+        "modify   : modify description of ith task")
     sys.exit(0)
 
 elif param[0] == cmd[1]:
@@ -95,11 +97,21 @@ elif param[0] == cmd[3]:
     #delete all tasks
     TASKS = []
 
+elif param[0] == cmd[4]:
+    l = int(param[1]) - 1
+    r = int(param[2]) - 1
+    TASKS[l], TASKS[r] = TASKS[r], TASKS[l]
+
+elif param[0] == cmd[5]:
+    idx = int(param[1]) - 1
+    print("Write the new value of:\"",TASKS[idx],"\"")
+    TASKS[idx] = input().strip()
+
 else:
     print("INVALID COMMAND")
     sys.exit(0)
 
-file_todo = open("/tmp/todo/todo.txt","w")
+file_todo = open(file,"w")
 for i in TASKS:
     file_todo.write(i)
     file_todo.write("\n")
