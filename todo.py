@@ -58,15 +58,15 @@ def print_todo():
     for i in range(col):
         bottom += "="
 
-    print("\n"+top+"      :TODOS:      "+top)
+    print(top+"      :TODOS:      "+top)
     if len(TASKS) == 0:
         print("No TODOS now, enjoy!!")
     else:
         for i in range(len(TASKS)):
             print(str(i + 1) + ": " + TASKS[i])
     print(bottom)
-    
-    
+
+
 if len(param) == 0:
     # just print all todos
     print_todo()
